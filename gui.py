@@ -2,6 +2,7 @@
 # 2017A7PS0112P
 
 from board import P1, P2, Board, ColumnFullException
+from data import data
 from game import Game
 from robot import Robot
 from state import State
@@ -41,7 +42,17 @@ class Gui:
         self._paint_board()
     
     def _on_see_data(self):
-        messagebox.showinfo('Coming soon', 'This section is a WIP')
+        data_window = Toplevel(self._layout_root)
+        data_window.title('Data')
+        data_window.geometry('180x280')
+        data_window.rowconfigure(0, weight=1)
+        data_window.columnconfigure(0, weight=1)
+        
+        frame = ttk.Frame(data_window, padding='10 10 10 10')
+        frame.grid(row=0, column=0, sticky=(N, W, E, S))
+
+        for i, key in enumerate(data):
+            ttk.Label(frame, text='{}: {}'.format(key, data[key])).grid(row=i, column=0, sticky=W)
     
     def _mouse_click(self, event):
         if self.game is None:
